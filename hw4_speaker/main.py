@@ -11,7 +11,7 @@ from model_utils.data import getDataloader, get_dataloader_test, getInferenceDat
 import random
 import  numpy as np
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 def seed_everything(seed):
     torch.manual_seed(seed)
@@ -27,20 +27,21 @@ seed_everything(1)
 ###############################################
 
 num_class = 600
-batchSize = 64
+batchSize = 128
 learning_rate = 2e-5
 loss = nn.CrossEntropyLoss()
 # loss = FocalSoftmax()
 epochs = 1000
-device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 ##########################################
 
 filepath = '/home/dataset/lhy/hw4/Dataset'
-save_path = 'model_save/class_2_1layer.pth'
+save_path = 'model_save/class_2_6layer.pth'
 
 pre_path = save_path
 # model = Classifier()
 model = Classifier2()
+model = torch.nn.parallel.DataParallel(model.to(device))
 # model = myTransformer()
 # model = torch.load(pre_path)
 ##########################
@@ -89,7 +90,7 @@ trainpara = {
              }
 
 
-train_val(trainpara)
+# train_val(trainpara)
 
 print('test')
 

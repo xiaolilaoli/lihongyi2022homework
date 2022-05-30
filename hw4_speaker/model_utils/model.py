@@ -85,7 +85,7 @@ class self_Attentive_pooling(nn.Module):
         torch.nn.init.normal_(self.attention, std=.02)
         print(1)
     def forward(self, x):
-        x = x.permute(0, 2, 1)
+        # x = x.permute(0, 2, 1)
         h = torch.tanh(self.sap_linaer(x))
         w = torch.matmul(h, self.attention).squeeze(dim=2)
         w = F.softmax(w, dim=1).view(x.size(0), x.size(1), 1)
@@ -191,17 +191,7 @@ class Classifier2(nn.Module):
         # TODO:
         #   Change Transformer to Conformer.
         #   https://arxiv.org/abs/2005.08100
-        # self.encoder_layer = ConformerBlock(
-        #     dim=512,
-        #     dim_head=64,
-        #     heads=8,
-        #     ff_mult=4,
-        #     conv_expansion_factor=2,
-        #     conv_kernel_size=31,
-        #     attn_dropout=0.,
-        #     ff_dropout=0.,
-        #     conv_dropout=0.
-        # )
+
         self.blocks = nn.ModuleList([
             ConformerBlock(
                 dim=d_model,
@@ -209,23 +199,13 @@ class Classifier2(nn.Module):
                 heads=8,
                 ff_mult=4,
                 conv_expansion_factor=2,
-                conv_kernel_size=31,
+                conv_kernel_size=15,
                 attn_dropout=dropout,
                 ff_dropout=dropout,
                 conv_dropout=dropout
             )
-            for i in range(1)])
+            for i in range(6)])
 
-        # self.encoder_layer = models.Conformer(
-        #     input_dim=d_model, ffn_dim=800, num_heads=8, dropout = dropout, depthwise_conv_kernel_size=15, num_layers=8
-        # )
-
-        # Project the the dimension of features from d_model into speaker nums.
-        # self.pred_layer = nn.Sequential(
-        #     nn.Linear(d_model, d_model),
-        #     nn.ReLU(),
-        #     nn.Linear(d_model, n_spks),
-        # )
         self.pooling = self_Attentive_pooling(d_model)
         self.pred_layer = AMSoftmax(d_model, n_spks)
     def forward(self, mels):
@@ -237,14 +217,9 @@ class Classifier2(nn.Module):
         """
         # out: (batch size, length, d_model)
         out = self.prenet(mels)
-        out = out.permute(1,0,2)
-        # The encoder layer expect features in the shape of (length, batch size, d_model).
+
         for blk in self.blocks:
             out = blk(out)
-        # out = self.encoder_layer(out,torch.tensor([out.shape[1]]*out.shape[0]).to('cuda'))
-        # out,_=out
-        # mean pooling
-        out = out.permute(1,2,0)
         stats = self.pooling(out)
         # out: (batch, n_spks)
         out = self.pred_layer(stats)

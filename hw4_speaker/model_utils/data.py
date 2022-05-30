@@ -137,7 +137,7 @@ def readTrainMel(dataDir):
 
 
 class speakerData(Dataset):
-    def __init__(self, dataDir, mode='train', segment_len=128, x=None , y= None):
+    def __init__(self, dataDir, mode='train', segment_len=256, x=None , y= None):
         super(speakerData, self).__init__()
         self.segment_len = segment_len
         self.dataDir = dataDir
@@ -166,6 +166,12 @@ class speakerData(Dataset):
         n_mel = self.x[item][1]
         if self.mode == 'train':
             if n_mel > self.segment_len:
+                start = random.randint(0, n_mel-self.segment_len)
+                end = start + self.segment_len
+                uttrData = uttrData[start: end]
+        if self.mode == 'test':
+            segment_len = 2000
+            if n_mel > segment_len:
                 start = random.randint(0, n_mel-self.segment_len)
                 end = start + self.segment_len
                 uttrData = uttrData[start: end]

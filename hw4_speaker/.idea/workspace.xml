@@ -32,7 +32,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../reappear/ViLT-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../competition/baseline_64.94" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -171,7 +171,12 @@
       <updated>1650883934278</updated>
       <workItem from="1650883935522" duration="65481000" />
       <workItem from="1652084768104" duration="45868000" />
-      <workItem from="1652497099056" duration="49655000" />
+      <workItem from="1652497099056" duration="71535000" />
+      <workItem from="1653360841822" duration="133000" />
+      <workItem from="1653360987198" duration="15370000" />
+      <workItem from="1653538634106" duration="11506000" />
+      <workItem from="1653887294792" duration="200000" />
+      <workItem from="1653887510225" duration="777000" />
     </task>
     <servers />
   </component>
@@ -223,7 +228,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model_utils/evaluate.py</url>
-          <line>23</line>
+          <line>30</line>
           <option name="timeStamp" value="53" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -243,7 +248,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>105</line>
+          <line>106</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -252,24 +257,29 @@
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model_utils/model.py</url>
-          <line>189</line>
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model_utils/evaluate.py</url>
-          <line>49</line>
+          <line>56</line>
           <option name="timeStamp" value="83" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model_utils/evaluate.py</url>
-          <line>58</line>
+          <line>65</line>
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model_utils/evaluate.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/model_utils/model.py</url>
-          <line>243</line>
-          <option name="timeStamp" value="85" />
+          <line>159</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/model_utils/model.py</url>
+          <line>152</line>
+          <option name="timeStamp" value="88" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -289,6 +299,7 @@
         <watch expression="(self.s * (logits - max_x)).exp().sum(-1).unsqueeze(-1)" language="Python" />
         <watch expression="(self.s*(logits-max_x)).exp()" language="Python" />
         <watch expression="__py_debug_temp_var_1028182849" />
+        <watch expression="torch.max(logits, dim=-1)" language="Python" />
       </configuration>
     </watches-manager>
   </component>
@@ -296,7 +307,7 @@
     <SUITE FILE_PATH="coverage/hw4_speaker$test.coverage" NAME="test 覆盖结果" MODIFIED="1652678247072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/hw4_speaker$others.coverage" NAME="others 覆盖结果" MODIFIED="1652350665109" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/hw4_speaker$train.coverage" NAME="train 覆盖结果" MODIFIED="1651138029791" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model_utils" />
-    <SUITE FILE_PATH="coverage/hw4_speaker$main.coverage" NAME="main 覆盖结果" MODIFIED="1652963115036" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/hw4_speaker$main.coverage" NAME="main 覆盖结果" MODIFIED="1653656808340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/hw4_speaker$data.coverage" NAME="data 覆盖结果" MODIFIED="1651136871867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model_utils" />
   </component>
 </project>

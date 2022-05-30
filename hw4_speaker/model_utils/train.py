@@ -83,6 +83,7 @@ def train_val(para):
             if val_acc > max_acc:
                 pat = 0
                 torch.save(model, save_path)
+                torch.save(model.module.state_dict(), save_path)
                 max_acc = val_acc
                 if save_acc:
                     with open(save_path+'acc.txt', 'w') as f:

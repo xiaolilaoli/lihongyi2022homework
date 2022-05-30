@@ -6,20 +6,27 @@ import csv
 from  tqdm import tqdm
 import json
 from pathlib import Path
+from model_utils.model import Classifier2
 def evaluate(model_path, testloader, rel_path ,device):
-    model = torch.load(model_path).to(device)
+    model = Classifier2()
+    checkpoint = torch.load(model_path, map_location='cpu')
+    model.load_state_dict(checkpoint)
+    if torch.cuda.is_available():
+        model = torch.nn.parallel.DataParallel(model.cuda())
+    model.eval()
+
+    # model = torch.load(model_path).to(device)
     model.device_ids = [0]
     results = [["Id", "Category"]]
     id2speaker = testloader.dataset.id2speaker
     model.eval()
     with torch.no_grad():
         for i,(feat_paths, mels) in enumerate(tqdm(testloader)):
-                if i > 4000:
-                    mels = mels.to(device)
-                    outs = model(mels)
-                    preds = outs.argmax(1).cpu().numpy()
-                    for feat_path, pred in zip(feat_paths, preds):
-                        results.append([feat_path, id2speaker[str(pred)]])
+            mels = mels.to(device)
+            outs = model(mels)
+            preds = outs.argmax(1).cpu().numpy()
+            for feat_path, pred in zip(feat_paths, preds):
+                results.append([feat_path, id2speaker[str(pred)]])
 
     with open(rel_path, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
